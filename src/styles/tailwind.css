@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Primary Colors */
+    --color-primary: #1E40AF; /* blue-800 - FLAME's signature blue */
+    --color-primary-foreground: #FFFFFF; /* white */
+    --color-secondary: #3B82F6; /* blue-500 - lighter blue for secondary actions */
+    --color-secondary-foreground: #FFFFFF; /* white */
+    
+    /* Accent Colors */
+    --color-accent: #F59E0B; /* amber-500 - warm amber for destinations */
+    --color-accent-foreground: #FFFFFF; /* white */
+    
+    /* Background Colors */
+    --color-background: #F8FAFC; /* slate-50 - cool white for outdoor use */
+    --color-foreground: #1F2937; /* gray-800 - near-black with warm undertone */
+    --color-surface: #FFFFFF; /* white - pure white for elevated elements */
+    
+    /* Border and Input Colors */
+    --color-border: #E5E7EB; /* gray-200 - subtle borders */
+    --color-input: #FFFFFF; /* white */
+    --color-ring: #3B82F6; /* blue-500 - focus ring color */
+    
+    /* Card Colors */
+    --color-card: #FFFFFF; /* white */
+    --color-card-foreground: #1F2937; /* gray-800 */
+    
+    /* Popover Colors */
+    --color-popover: #FFFFFF; /* white */
+    --color-popover-foreground: #1F2937; /* gray-800 */
+    
+    /* Muted Colors */
+    --color-muted: #F1F5F9; /* slate-100 */
+    --color-muted-foreground: #6B7280; /* gray-500 - medium gray for supporting info */
+    
+    /* Status Colors */
+    --color-success: #10B981; /* emerald-500 - vibrant green for arrivals */
+    --color-success-foreground: #FFFFFF; /* white */
+    --color-warning: #F59E0B; /* amber-500 - GPS accuracy warnings */
+    --color-warning-foreground: #FFFFFF; /* white */
+    --color-error: #EF4444; /* red-500 - location failures */
+    --color-error-foreground: #FFFFFF; /* white */
+    --color-destructive: #EF4444; /* red-500 - critical navigation errors */
+    --color-destructive-foreground: #FFFFFF; /* white */
+  }
+
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  /* GPS Status Indicator Styles */
+.gps-status-indicator  {
+    @apply fixed top-4 left-4 z-20 flex items-center gap-2 backdrop-blur-sm rounded-full px-3 py-2 shadow-md;
+  }
+  
+  .gps-status-accurate {
+    @apply text-success;
+  }
+  
+  .gps-status-searching {
+    @apply text-warning;
+  }
+  
+  .gps-status-lost {
+    @apply text-error;
+  }
+
+  /* Map Control Cluster Styles */
+  .map-controls {
+    @apply fixed bottom-6 right-4 z-10 flex flex-col gap-2;
+  }
+  
+  .map-control-button {
+    @apply w-12 h-12 bg-surface shadow-lg rounded-full flex items-center justify-center text-foreground hover:bg-muted transition-all duration-200 active:scale-95;
+  }
+
+  /* Navigation Status Panel Styles */
+  .navigation-panel {
+    @apply fixed bottom-0 left-0 right-0 z-20 bg-surface border-t border-border transform transition-transform duration-300 ease-out;
+  }
+  
+  .navigation-panel-collapsed {
+    @apply translate-y-full;
+  }
+  
+  .navigation-panel-expanded {
+    @apply translate-y-0;
+  }
+
+  /* System Modal Styles */
+.system-modal-overlay  {
+    @apply fixed inset-0 z-50 backdrop-blur-sm flex items-center justify-center p-4;
+  }
+  
+  .system-modal-content {
+    @apply bg-surface rounded-lg shadow-xl max-w-md w-full p-6 space-y-4;
+  }
+
+  /* Floating Action Button Styles */
+  .floating-action {
+    @apply fixed bottom-6 left-1/2 transform -translate-x-1/2 z-20 bg-primary text-primary-foreground rounded-full shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95;
+  }
+
+  /* Animation Classes */
+  .animate-pulse-gps {
+    animation: pulse-gps 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  @keyframes pulse-gps {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  
+  .animate-slide-up {
+    animation: slide-up 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+  
+  @keyframes slide-up {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-scale-tap {
+    animation: scale-tap 0.15s cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+  
+  @keyframes scale-tap {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.95);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+}
+
+@layer utilities {
+  /* Custom shadow utilities for elevation system */
+  .shadow-floating {
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .shadow-modal {
+    box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.1), 0 4px 8px -2px rgba(0, 0, 0, 0.06);
+  }
+  
+  .shadow-critical {
+    box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.25), 0 12px 24px -6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Custom backdrop blur utilities */
+  .backdrop-blur-light {
+    backdrop-filter: blur(4px);
+  }
+  
+  .backdrop-blur-medium {
+    backdrop-filter: blur(8px);
+  }
+  
+  /* Safe area utilities for mobile devices */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .safe-left {
+    padding-left: env(safe-area-inset-left);
+  }
+  
+  .safe-right {
+    padding-right: env(safe-area-inset-right);
+  }
+}
